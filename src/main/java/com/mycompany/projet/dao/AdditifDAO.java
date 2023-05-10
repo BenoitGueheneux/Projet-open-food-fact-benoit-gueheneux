@@ -5,7 +5,7 @@
 package com.mycompany.projet.dao;
 
 import com.mycompany.projet.ProjetUtils;
-import com.mycompany.projet.model.Allergene;
+import com.mycompany.projet.model.Additif;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -14,45 +14,43 @@ import java.util.List;
  *
  * @author Benlo
  */
-public class AllergeneDAO {
+public class AdditifDAO {
     
     private EntityManager em = ProjetUtils.getInstance().getEntityManager();
     
-    public void create(Allergene allergene) {
+    public void create(Additif additif) {
         em.getTransaction().begin();
-        em.persist(allergene);
+        em.persist(additif);
         em.getTransaction().commit();
     }
 
-    public Allergene readById(long id) {
-        return em.find(Allergene.class, id);
+    public Additif readById(long id) {
+        return em.find(Additif.class, id);
     }
     
-    public List<Allergene> readByName(String nom) {
-        TypedQuery<Allergene> typedQuery = em.createQuery("SELECT a FROM Allergene a WHERE a.nom=:nom", Allergene.class);
+    public List<Additif> readByName(String nom) {
+        TypedQuery<Additif> typedQuery = em.createQuery("SELECT a FROM Additif a WHERE a.nom=:nom", Additif.class);
         typedQuery.setParameter("nom", nom);
         return typedQuery.getResultList();
     }
 
 
-    public List<Allergene> readAll() {
-        return em.createQuery("SELECT a FROM Allergene a", Allergene.class).getResultList();
+    public List<Additif> readAll() {
+        return em.createQuery("SELECT a FROM Additif a", Additif.class).getResultList();
     }
     
-    
-    
-    public void update(Allergene allergene) {
+    public void update(Additif additif) {
         em.getTransaction().begin();
-        em.merge(allergene);
+        em.merge(additif);
         em.getTransaction().commit();
     }
 
 
-    public void delete(Allergene allergene) {
+    public void delete(Additif additif) {
         em.getTransaction().begin();
-        em.remove(allergene);
+        em.remove(additif);
         em.getTransaction().commit();
         }
-    }
+}
 
 

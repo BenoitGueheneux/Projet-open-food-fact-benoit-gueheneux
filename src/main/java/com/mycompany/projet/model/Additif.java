@@ -4,6 +4,7 @@
  */
 package com.mycompany.projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,9 +22,13 @@ public class Additif {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column( length = 512 )
     private String nom;
     @ManyToMany(mappedBy = "additifs")
     private List<Produit> produits = new ArrayList<>();
+
+    
+    
 
     public Long getId() {
         return id;

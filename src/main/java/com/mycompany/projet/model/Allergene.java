@@ -25,6 +25,9 @@ public class Allergene {
     @ManyToMany(mappedBy = "allergenes")
     private List<Produit> produits = new ArrayList<>();
 
+    
+    
+
     public Long getId() {
         return id;
     }

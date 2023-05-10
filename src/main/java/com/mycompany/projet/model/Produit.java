@@ -4,6 +4,7 @@
  */
 package com.mycompany.projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -55,6 +56,36 @@ public class Produit {
     private List<Allergene> allergenes = new ArrayList<>();
     @ManyToMany
     private List<Ingredient> ingredients = new ArrayList<>();
+
+//    public Produit(String nom, Character scoreNutritionnel, Float energie100g, Float graisse100g, Float sucrese100g, Float fibres100g, Float proteines100g, Float sel100g, Float vitA100g, Float vitD100g, Float vitE100g, Float vitK100g, Float vitC100g, Float vitB1100g, Float vitB2100g, Float vitPP100g, Float vitB6100g, Float vitB9100g, Float vitB12100g, Float calcium100g, Float magnesium100g, Float iron100g, Float fer100g, Float betaCarotene100g, Boolean presenceHuileDePalme) {
+//        this.nom = nom;
+//        this.scoreNutritionnel = scoreNutritionnel;
+//        this.energie100g = energie100g;
+//        this.graisse100g = graisse100g;
+//        this.sucrese100g = sucrese100g;
+//        this.fibres100g = fibres100g;
+//        this.proteines100g = proteines100g;
+//        this.sel100g = sel100g;
+//        this.vitA100g = vitA100g;
+//        this.vitD100g = vitD100g;
+//        this.vitE100g = vitE100g;
+//        this.vitK100g = vitK100g;
+//        this.vitC100g = vitC100g;
+//        this.vitB1100g = vitB1100g;
+//        this.vitB2100g = vitB2100g;
+//        this.vitPP100g = vitPP100g;
+//        this.vitB6100g = vitB6100g;
+//        this.vitB9100g = vitB9100g;
+//        this.vitB12100g = vitB12100g;
+//        this.calcium100g = calcium100g;
+//        this.magnesium100g = magnesium100g;
+//        this.iron100g = iron100g;
+//        this.fer100g = fer100g;
+//        this.betaCarotene100g = betaCarotene100g;
+//        this.presenceHuileDePalme = presenceHuileDePalme;
+//    }
+    
+    
 
     public Long getId() {
         return id;
@@ -288,11 +319,11 @@ public class Produit {
         this.allergenes = allergenes;
     }
 
-    public List<Ingredient> getIngredient() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredient(List<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
     

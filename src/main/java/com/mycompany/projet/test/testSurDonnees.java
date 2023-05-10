@@ -27,8 +27,8 @@ public class testSurDonnees {
     }
     
     public static void creationList() throws IOException {
-        //Path path = Paths.get("C:/Users/Benlo/OneDrive/Documents/NetBeansProjects/Projet-open-food-fact-benoit-gueheneux/donnees/open-food-facts.csv");
-        Path path = Paths.get("C:/Users/Benlo/OneDrive/Documents/NetBeansProjects/Projet-open-food-fact-benoit-gueheneux/donnees/openfoodok.xlsx");
+        Path path = Paths.get("donnees/open-food-facts.csv");
+        //Path path = Paths.get("C:/Users/Benlo/OneDrive/Documents/NetBeansProjects/Projet-open-food-fact-benoit-gueheneux/donnees/openfoodok.xlsx");
 	List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
         boolean verifEgaliteColumn = true;
         String[] tokens = lines.get(0).split("\\|");

@@ -5,7 +5,7 @@
 package com.mycompany.projet.dao;
 
 import com.mycompany.projet.ProjetUtils;
-import com.mycompany.projet.model.Allergene;
+import com.mycompany.projet.model.Ingredient;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -14,45 +14,43 @@ import java.util.List;
  *
  * @author Benlo
  */
-public class AllergeneDAO {
+public class IngredientDAO {
     
     private EntityManager em = ProjetUtils.getInstance().getEntityManager();
     
-    public void create(Allergene allergene) {
+    public void create(Ingredient ingredient) {
         em.getTransaction().begin();
-        em.persist(allergene);
+        em.persist(ingredient);
         em.getTransaction().commit();
     }
 
-    public Allergene readById(long id) {
-        return em.find(Allergene.class, id);
+    public Ingredient readById(long id) {
+        return em.find(Ingredient.class, id);
     }
     
-    public List<Allergene> readByName(String nom) {
-        TypedQuery<Allergene> typedQuery = em.createQuery("SELECT a FROM Allergene a WHERE a.nom=:nom", Allergene.class);
+    public List<Ingredient> readByName(String nom) {
+        TypedQuery<Ingredient> typedQuery = em.createQuery("SELECT a FROM Ingredient a WHERE a.nom=:nom", Ingredient.class);
         typedQuery.setParameter("nom", nom);
         return typedQuery.getResultList();
     }
 
 
-    public List<Allergene> readAll() {
-        return em.createQuery("SELECT a FROM Allergene a", Allergene.class).getResultList();
+    public List<Ingredient> readAll() {
+        return em.createQuery("SELECT a FROM Ingredient a", Ingredient.class).getResultList();
     }
     
-    
-    
-    public void update(Allergene allergene) {
+    public void update(Ingredient ingredient) {
         em.getTransaction().begin();
-        em.merge(allergene);
+        em.merge(ingredient);
         em.getTransaction().commit();
     }
 
 
-    public void delete(Allergene allergene) {
+    public void delete(Ingredient ingredient) {
         em.getTransaction().begin();
-        em.remove(allergene);
+        em.remove(ingredient);
         em.getTransaction().commit();
         }
-    }
+}
 
 

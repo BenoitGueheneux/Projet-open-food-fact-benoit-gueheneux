@@ -4,6 +4,7 @@
  */
 package com.mycompany.projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,15 @@ public class Categorie {
     @OneToMany
     @JoinColumn(name = "categorie_fk")
     List<Produit> produits = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Categorie{" + "id=" + id + ", nom=" + nom + ", produits=" + produits + '}';
+    }
+
+
+    
+    
 
     public Long getId() {
         return id;

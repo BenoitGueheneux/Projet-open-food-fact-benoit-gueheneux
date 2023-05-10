@@ -5,7 +5,7 @@
 package com.mycompany.projet.dao;
 
 import com.mycompany.projet.ProjetUtils;
-import com.mycompany.projet.model.Allergene;
+import com.mycompany.projet.model.Categorie;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -14,45 +14,45 @@ import java.util.List;
  *
  * @author Benlo
  */
-public class AllergeneDAO {
+public class CategorieDAO {
     
     private EntityManager em = ProjetUtils.getInstance().getEntityManager();
     
-    public void create(Allergene allergene) {
+    
+    
+    public void create(Categorie categorie) {
         em.getTransaction().begin();
-        em.persist(allergene);
+        em.persist(categorie);
         em.getTransaction().commit();
     }
 
-    public Allergene readById(long id) {
-        return em.find(Allergene.class, id);
+    public Categorie readById(long id) {
+        return em.find(Categorie.class, id);
     }
     
-    public List<Allergene> readByName(String nom) {
-        TypedQuery<Allergene> typedQuery = em.createQuery("SELECT a FROM Allergene a WHERE a.nom=:nom", Allergene.class);
+    public List<Categorie> readByName(String nom) {
+        TypedQuery<Categorie> typedQuery = em.createQuery("SELECT a FROM Categorie a WHERE a.nom=:nom", Categorie.class);
         typedQuery.setParameter("nom", nom);
         return typedQuery.getResultList();
     }
 
 
-    public List<Allergene> readAll() {
-        return em.createQuery("SELECT a FROM Allergene a", Allergene.class).getResultList();
+    public List<Categorie> readAll() {
+        return em.createQuery("SELECT a FROM Categorie a", Categorie.class).getResultList();
     }
     
-    
-    
-    public void update(Allergene allergene) {
+    public void update(Categorie categorie) {
         em.getTransaction().begin();
-        em.merge(allergene);
+        em.merge(categorie);
         em.getTransaction().commit();
     }
 
 
-    public void delete(Allergene allergene) {
+    public void delete(Categorie categorie) {
         em.getTransaction().begin();
-        em.remove(allergene);
+        em.remove(categorie);
         em.getTransaction().commit();
         }
-    }
+}
 
 

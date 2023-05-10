@@ -25,6 +25,9 @@ public class Marque {
     @ManyToMany(mappedBy = "marques")
     private List<Produit> produits = new ArrayList<>();
 
+    
+    
+
     public Long getId() {
         return id;
     }

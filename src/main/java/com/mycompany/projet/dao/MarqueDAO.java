@@ -5,7 +5,7 @@
 package com.mycompany.projet.dao;
 
 import com.mycompany.projet.ProjetUtils;
-import com.mycompany.projet.model.Allergene;
+import com.mycompany.projet.model.Marque;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -14,45 +14,43 @@ import java.util.List;
  *
  * @author Benlo
  */
-public class AllergeneDAO {
+public class MarqueDAO {
     
     private EntityManager em = ProjetUtils.getInstance().getEntityManager();
     
-    public void create(Allergene allergene) {
+    public void create(Marque marque) {
         em.getTransaction().begin();
-        em.persist(allergene);
+        em.persist(marque);
         em.getTransaction().commit();
     }
 
-    public Allergene readById(long id) {
-        return em.find(Allergene.class, id);
+    public Marque readById(long id) {
+        return em.find(Marque.class, id);
     }
     
-    public List<Allergene> readByName(String nom) {
-        TypedQuery<Allergene> typedQuery = em.createQuery("SELECT a FROM Allergene a WHERE a.nom=:nom", Allergene.class);
+    public List<Marque> readByName(String nom) {
+        TypedQuery<Marque> typedQuery = em.createQuery("SELECT a FROM Marque a WHERE a.nom=:nom", Marque.class);
         typedQuery.setParameter("nom", nom);
         return typedQuery.getResultList();
     }
 
 
-    public List<Allergene> readAll() {
-        return em.createQuery("SELECT a FROM Allergene a", Allergene.class).getResultList();
+    public List<Marque> readAll() {
+        return em.createQuery("SELECT a FROM Marque a", Marque.class).getResultList();
     }
     
-    
-    
-    public void update(Allergene allergene) {
+    public void update(Marque marque) {
         em.getTransaction().begin();
-        em.merge(allergene);
+        em.merge(marque);
         em.getTransaction().commit();
     }
 
 
-    public void delete(Allergene allergene) {
+    public void delete(Marque marque) {
         em.getTransaction().begin();
-        em.remove(allergene);
+        em.remove(marque);
         em.getTransaction().commit();
         }
-    }
+}
 
 
