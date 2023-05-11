@@ -34,19 +34,25 @@ import java.util.logging.Logger;
  * @author Benlo
  */
 public class TraitementDuFichier {
-    
-    public static void traitement(){
+    /**
+     * Cette méthode lit les données d'un fichier CSV "donnees/open-food-facts.csv", les traite et enregistre les données dans la base de données.
+     * Les données sont traitées ligne par ligne et chaque ligne est transformée en un objet "Produit" dont les champs sont initialisés à partir des valeurs du CSV.
+     * L'objet "Produit" est ensuite enregistré dans la base de données avec d'autres objets tels que "Categorie", "Marque", "Ingredient" et "Allergene".
+     * Cette méthode traite un maximum de 1000 lignes de données.
+     * Elle lance une IOException si une erreur d'E/S se produit lors de la lecture du fichier.
+     */
+    public static void traitement() {
         Path path = Paths.get("donnees/open-food-facts.csv");
         try {
             BufferedReader reader = Files.newBufferedReader(path);
             int i = 0;
             reader.readLine();
-            for (String line = reader.readLine();((i<100)&&(line!=null));line = reader.readLine(),i++) {
+            for (String line = reader.readLine(); ((i < 1000) && (line != null)); line = reader.readLine(), i++) {
                 Produit produit = new Produit();
                 String[] elements;
                 String[] colonnes = line.split("\\|");
                 for (int j = 0; j < colonnes.length; j++) {
-                    if(colonnes[j].trim().length()==0){
+                    if (colonnes[j].trim().length() == 0) {
                         continue;
                     }
                     switch (j) {
@@ -54,11 +60,11 @@ public class TraitementDuFichier {
                             Categorie categorie = new Categorie();
                             categorie.setNom(colonnes[j]);
                             List<Categorie> categorieListe = new CategorieDAO().readByName(colonnes[j]);
-                            if(categorieListe.isEmpty()){
+                            if (categorieListe.isEmpty()) {
                                 new CategorieDAO().create(categorie);
-                            } else{
+                            } else {
                                 categorie = categorieListe.get(0);
-                                new CategorieDAO().update(categorie);  
+                                new CategorieDAO().update(categorie);
                             }
                             categorie.getProduits().add(produit);
                             break;
@@ -87,7 +93,7 @@ public class TraitementDuFichier {
                         case 4:
                             elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
-                                element=element.trim();
+                                element = element.trim();
                                 Ingredient ingredient = new Ingredient();
                                 ingredient.setNom(element);
                                 List<Ingredient> ingredientListe = new IngredientDAO().readByName(element);
@@ -173,7 +179,7 @@ public class TraitementDuFichier {
                         case 28:
                             elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
-                                element=element.trim();
+                                element = element.trim();
                                 Allergene allergene = new Allergene();
                                 allergene.setNom(element);
                                 List<Allergene> allergeneListe = new AllergeneDAO().readByName(element);
@@ -190,7 +196,7 @@ public class TraitementDuFichier {
                         case 29:
                             elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
-                                element=element.trim();
+                                element = element.trim();
                                 Additif additif = new Additif();
                                 additif.setNom(element);
                                 List<Additif> additifListe = new AdditifDAO().readByName(element);
@@ -210,7 +216,7 @@ public class TraitementDuFichier {
                 }
                 new ProduitDAO().create(produit);
                 //Création objets
-                
+
 //                List<Marque> marques = new ArrayList<>();
 //                //String[] tableauMarque = elements[1].split(",");
 //                for (int j = 0; j < tableauMarque.length; j++) {
@@ -222,8 +228,6 @@ public class TraitementDuFichier {
 //                Allergene allergene = new Allergene(elements[28]);
 //                Additif additif = new Additif(elements[29]);
                 //Produit produit = new Produit(elements[2], elements[3].charAt(0),convertionStringEnDouble(elements[5]),convertionStringEnDouble(elements[6]),convertionStringEnDouble(elements[7]),convertionStringEnDouble(elements[8]),convertionStringEnDouble(elements[9]),convertionStringEnDouble(elements[10]),convertionStringEnDouble(elements[11]),convertionStringEnDouble(elements[12]),convertionStringEnDouble(elements[13]),convertionStringEnDouble(elements[14]),convertionStringEnDouble(elements[15]),convertionStringEnDouble(elements[16]),convertionStringEnDouble(elements[17]),convertionStringEnDouble(elements[18]),convertionStringEnDouble(elements[19]),convertionStringEnDouble(elements[20]),convertionStringEnDouble(elements[21]),convertionStringEnDouble(elements[22]),convertionStringEnDouble(elements[23]),convertionStringEnDouble(elements[24]),convertionStringEnDouble(elements[25]),convertionStringEnDouble(elements[26]),convertionStringEnBoolean(elements[27]));
-                
-                
 //                categorie.getProduits().add(produit);
 //                produit.getMarques().add(marque);
 //                
@@ -250,16 +254,36 @@ public class TraitementDuFichier {
         } catch (IOException ex) {
             Logger.getLogger(TraitementDuFichier.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    public static boolean convertionStringEnBoolean(String string){
+
+    public static boolean convertionStringEnBoolean(String string) {
         return string.equals("1");
     }
-    
-    public static String traitementDonnees(String string){
-        return string.replaceAll("\\d+\\.\\d+\\s+%", "").replaceAll("\\d+\\.\\d+%", "").replaceAll("\\d+\\s+%", "").replaceAll("\\d+%", "").replaceAll("[;:.]", ",").replaceAll("_", " ").replaceAll("[\\*()]", " ").replaceAll("\\s+\\d+\\s+", " ").toLowerCase().trim();
+
+    /**
+     * Cette méthode prend une chaîne de caractères en entrée et applique une
+     * série de transformations pour enlever certains éléments indésirables et
+     * normaliser la chaîne.
+     *
+     * Les transformations appliquées sont : 
+     * - Suppression des pourcentages au format XX.XX % 
+     * - Suppression des pourcentages au format XX.XX% 
+     * - Suppression des pourcentages au format XX % 
+     * - Suppression des pourcentages au format XX% 
+     * - Remplacement des points-virgules, des points et des
+     * deux-points par des virgules 
+     * - Remplacement des tirets bas par des espaces
+     * - Suppression des étoiles, des parenthèses et des nombres qui
+     * suivent un ou plusieurs espaces 
+     * - Passage de la chaîne en minuscules 
+     * @param string la chaîne de caractères à transformer
+     * @return la chaîne transformée
+     */
+    public static String traitementDonnees(String string) {
+        return string.replaceAll("\\d+\\.\\d+\\s+%", "").replaceAll("\\d+\\.\\d+%", "").replaceAll("\\d+\\s+%", "").replaceAll("\\d+%", "").replaceAll("[;:.]", ",").replaceAll("_", " ").replaceAll("[\\*()]", " ").replaceAll("\\s+\\d+\\s+", " ").toLowerCase();
     }
-    
+
 //    public static Double convertionStringEnDouble(String string){
 //        if(string.equals("")){
 //            return 0d;
