@@ -41,7 +41,7 @@ public class TraitementDuFichier {
             BufferedReader reader = Files.newBufferedReader(path);
             int i = 0;
             reader.readLine();
-            for (String line = reader.readLine();((i<1000)&&(line!=null));line = reader.readLine(),i++) {
+            for (String line = reader.readLine();((i<100)&&(line!=null));line = reader.readLine(),i++) {
                 Produit produit = new Produit();
                 String[] elements;
                 String[] colonnes = line.split("\\|");
@@ -85,8 +85,9 @@ public class TraitementDuFichier {
                             produit.setScoreNutritionnel(colonnes[j].charAt(0));
                             break;
                         case 4:
-                            elements = colonnes[j].split(",");
+                            elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
+                                element=element.trim();
                                 Ingredient ingredient = new Ingredient();
                                 ingredient.setNom(element);
                                 List<Ingredient> ingredientListe = new IngredientDAO().readByName(element);
@@ -101,77 +102,78 @@ public class TraitementDuFichier {
                             }
                             break;
                         case 5:
-                            produit.setEnergie100g(Float.valueOf(colonnes[j]));
+                            produit.setEnergie100g(Double.valueOf(colonnes[j]));
                             break;
                         case 6:
-                            produit.setGraisse100g(Float.valueOf(colonnes[j]));
+                            produit.setGraisse100g(Double.valueOf(colonnes[j]));
                             break;
                         case 7:
-                            produit.setSucrese100g(Float.valueOf(colonnes[j]));
+                            produit.setSucrese100g(Double.valueOf(colonnes[j]));
                             break;
                         case 8:
-                            produit.setFibres100g(Float.valueOf(colonnes[j]));
+                            produit.setFibres100g(Double.valueOf(colonnes[j]));
                             break;
                         case 9:
-                            produit.setProteines100g(Float.valueOf(colonnes[j]));
+                            produit.setProteines100g(Double.valueOf(colonnes[j]));
                             break;
                         case 10:
-                            produit.setSel100g(Float.valueOf(colonnes[j]));
+                            produit.setSel100g(Double.valueOf(colonnes[j]));
                             break;
                         case 11:
-                            produit.setVitA100g(Float.valueOf(colonnes[j]));
+                            produit.setVitA100g(Double.valueOf(colonnes[j]));
                             break;
                         case 12:
-                            produit.setVitD100g(Float.valueOf(colonnes[j]));
+                            produit.setVitD100g(Double.valueOf(colonnes[j]));
                             break;
                         case 13:
-                            produit.setVitE100g(Float.valueOf(colonnes[j]));
+                            produit.setVitE100g(Double.valueOf(colonnes[j]));
                             break;
                         case 14:
-                            produit.setVitK100g(Float.valueOf(colonnes[j]));
+                            produit.setVitK100g(Double.valueOf(colonnes[j]));
                             break;
                         case 15:
-                            produit.setVitC100g(Float.valueOf(colonnes[j]));
+                            produit.setVitC100g(Double.valueOf(colonnes[j]));
                             break;
                         case 16:
-                            produit.setVitB1100g(Float.valueOf(colonnes[j]));
+                            produit.setVitB1100g(Double.valueOf(colonnes[j]));
                             break;
                         case 17:
-                            produit.setVitB2100g(Float.valueOf(colonnes[j]));
+                            produit.setVitB2100g(Double.valueOf(colonnes[j]));
                             break;
                         case 18:
-                            produit.setVitPP100g(Float.valueOf(colonnes[j]));
+                            produit.setVitPP100g(Double.valueOf(colonnes[j]));
                             break;
                         case 19:
-                            produit.setVitB6100g(Float.valueOf(colonnes[j]));
+                            produit.setVitB6100g(Double.valueOf(colonnes[j]));
                             break;
                         case 20:
-                            produit.setVitB9100g(Float.valueOf(colonnes[j]));
+                            produit.setVitB9100g(Double.valueOf(colonnes[j]));
                             break;
                         case 21:
-                            produit.setVitB12100g(Float.valueOf(colonnes[j]));
+                            produit.setVitB12100g(Double.valueOf(colonnes[j]));
                             break;
                         case 22:
-                            produit.setCalcium100g(Float.valueOf(colonnes[j]));
+                            produit.setCalcium100g(Double.valueOf(colonnes[j]));
                             break;
                         case 23:
-                            produit.setMagnesium100g(Float.valueOf(colonnes[j]));
+                            produit.setMagnesium100g(Double.valueOf(colonnes[j]));
                             break;
                         case 24:
-                            produit.setIron100g(Float.valueOf(colonnes[j]));
+                            produit.setIron100g(Double.valueOf(colonnes[j]));
                             break;
                         case 25:
-                            produit.setFer100g(Float.valueOf(colonnes[j]));
+                            produit.setFer100g(Double.valueOf(colonnes[j]));
                             break;
                         case 26:
-                            produit.setBetaCarotene100g(Float.valueOf(colonnes[j]));
+                            produit.setBetaCarotene100g(Double.valueOf(colonnes[j]));
                             break;
                         case 27:
                             produit.setPresenceHuileDePalme(convertionStringEnBoolean(colonnes[j]));
                             break;
                         case 28:
-                            elements = colonnes[j].split(",");
+                            elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
+                                element=element.trim();
                                 Allergene allergene = new Allergene();
                                 allergene.setNom(element);
                                 List<Allergene> allergeneListe = new AllergeneDAO().readByName(element);
@@ -186,8 +188,9 @@ public class TraitementDuFichier {
                             }
                             break;
                         case 29:
-                            elements = colonnes[j].split(",");
+                            elements = traitementDonnees(colonnes[j]).split(",");
                             for (String element : elements) {
+                                element=element.trim();
                                 Additif additif = new Additif();
                                 additif.setNom(element);
                                 List<Additif> additifListe = new AdditifDAO().readByName(element);
@@ -218,7 +221,7 @@ public class TraitementDuFichier {
 //                Ingredient ingredient = new Ingredient(elements[4]);
 //                Allergene allergene = new Allergene(elements[28]);
 //                Additif additif = new Additif(elements[29]);
-                //Produit produit = new Produit(elements[2], elements[3].charAt(0),convertionStringEnFloat(elements[5]),convertionStringEnFloat(elements[6]),convertionStringEnFloat(elements[7]),convertionStringEnFloat(elements[8]),convertionStringEnFloat(elements[9]),convertionStringEnFloat(elements[10]),convertionStringEnFloat(elements[11]),convertionStringEnFloat(elements[12]),convertionStringEnFloat(elements[13]),convertionStringEnFloat(elements[14]),convertionStringEnFloat(elements[15]),convertionStringEnFloat(elements[16]),convertionStringEnFloat(elements[17]),convertionStringEnFloat(elements[18]),convertionStringEnFloat(elements[19]),convertionStringEnFloat(elements[20]),convertionStringEnFloat(elements[21]),convertionStringEnFloat(elements[22]),convertionStringEnFloat(elements[23]),convertionStringEnFloat(elements[24]),convertionStringEnFloat(elements[25]),convertionStringEnFloat(elements[26]),convertionStringEnBoolean(elements[27]));
+                //Produit produit = new Produit(elements[2], elements[3].charAt(0),convertionStringEnDouble(elements[5]),convertionStringEnDouble(elements[6]),convertionStringEnDouble(elements[7]),convertionStringEnDouble(elements[8]),convertionStringEnDouble(elements[9]),convertionStringEnDouble(elements[10]),convertionStringEnDouble(elements[11]),convertionStringEnDouble(elements[12]),convertionStringEnDouble(elements[13]),convertionStringEnDouble(elements[14]),convertionStringEnDouble(elements[15]),convertionStringEnDouble(elements[16]),convertionStringEnDouble(elements[17]),convertionStringEnDouble(elements[18]),convertionStringEnDouble(elements[19]),convertionStringEnDouble(elements[20]),convertionStringEnDouble(elements[21]),convertionStringEnDouble(elements[22]),convertionStringEnDouble(elements[23]),convertionStringEnDouble(elements[24]),convertionStringEnDouble(elements[25]),convertionStringEnDouble(elements[26]),convertionStringEnBoolean(elements[27]));
                 
                 
 //                categorie.getProduits().add(produit);
@@ -253,11 +256,15 @@ public class TraitementDuFichier {
         return string.equals("1");
     }
     
-    public static Float convertionStringEnFloat(String string){
-        if(string.equals("")){
-            return 0f;
-        } else {
-            return Float.valueOf(string);
+    public static String traitementDonnees(String string){
+        return string.replaceAll("\\d+\\.\\d+\\s+%", "").replaceAll("\\d+\\.\\d+%", "").replaceAll("\\d+\\s+%", "").replaceAll("\\d+%", "").replaceAll("[;:.]", ",").replaceAll("_", " ").replaceAll("[\\*()]", " ").replaceAll("\\s+\\d+\\s+", " ").toLowerCase().trim();
     }
-}
+    
+//    public static Double convertionStringEnDouble(String string){
+//        if(string.equals("")){
+//            return 0d;
+//        } else {
+//            return Double.valueOf(string);
+//    }
+//}
 }

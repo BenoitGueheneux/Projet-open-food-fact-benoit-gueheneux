@@ -4,6 +4,7 @@
  */
 package com.mycompany.projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Allergene {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column( length = 512 )
     private String nom;
     @ManyToMany(mappedBy = "allergenes")
     private List<Produit> produits = new ArrayList<>();

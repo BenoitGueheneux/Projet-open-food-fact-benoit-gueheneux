@@ -22,7 +22,7 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column( length = 512 )
+    @Column( length = 1024 )
     private String nom;
     @ManyToMany(mappedBy = "ingredients")
     private List<Produit> produits = new ArrayList<>();
